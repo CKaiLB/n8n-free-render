@@ -10,6 +10,7 @@ ENV N8N_HOST=n8n.onrender.com
 ENV N8N_PORT=5678
 ENV N8N_PROTOCOL=https
 ENV WEBHOOK_URL=https://n8n.onrender.com
+ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 
 # Start n8n
-CMD ["n8n", "start"]
+CMD ["/usr/local/bin/n8n", "start"]
