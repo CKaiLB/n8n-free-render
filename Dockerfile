@@ -13,4 +13,4 @@ ENV WEBHOOK_URL=https://n8n.onrender.com
 ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 
 # Start n8n
-CMD ["/usr/local/bin/n8n", "start"]
+CMD ["npm", "run", "start"]
