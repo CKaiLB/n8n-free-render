@@ -4,7 +4,7 @@
     {
       "parameters": {
         "authentication": "apiKey",
-        "apiKey": "={{$env.N8N_GOOGLE_PALM_API_KEY}}",
+        "apiKey": "={{$credentials.googlePalmApi.apiKey}}",
         "model": "gemini-pro",
         "prompt": "={{$json[\"prompt\"]}}",
         "options": {}
@@ -15,12 +15,17 @@
       "position": [
         250,
         300
-      ]
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "google-palm-api",
+          "name": "Google Gemini API"
+        }
+      }
     },
     {
       "parameters": {
         "authentication": "oAuth2",
-        "credentialId": "={{$env.N8N_GMAIL_OAUTH2_CREDENTIALS}}",
         "fromEmail": "={{$json[\"from\"]}}",
         "toEmail": "={{$json[\"to\"]}}",
         "subject": "={{$json[\"subject\"]}}",
@@ -33,12 +38,17 @@
       "position": [
         450,
         300
-      ]
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gmail-oauth2",
+          "name": "Gmail account"
+        }
+      }
     },
     {
       "parameters": {
         "authentication": "oAuth2",
-        "credentialId": "={{$env.N8N_GOOGLE_DOCS_OAUTH2_CREDENTIALS}}",
         "documentId": "={{$json[\"documentId\"]}}",
         "options": {}
       },
@@ -48,7 +58,13 @@
       "position": [
         650,
         300
-      ]
+      ],
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "google-docs-oauth2",
+          "name": "Google Docs account"
+        }
+      }
     },
     {
       "parameters": {
@@ -64,7 +80,7 @@
         50,
         300
       ],
-      "webhookId": "={{$env.N8N_WEBHOOK_URL}}/webhook"
+      "webhookId": "webhook"
     },
     {
       "parameters": {
@@ -80,7 +96,7 @@
         50,
         500
       ],
-      "webhookId": "={{$env.N8N_WEBHOOK_TEST_URL}}/webhook-test"
+      "webhookId": "webhook-test"
     }
   ],
   "connections": {
