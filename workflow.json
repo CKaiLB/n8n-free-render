@@ -1,0 +1,132 @@
+{
+  "name": "Isanti_Demo",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "apiKey",
+        "apiKey": "={{$env.N8N_GOOGLE_PALM_API_KEY}}",
+        "model": "gemini-pro",
+        "prompt": "={{$json[\"prompt\"]}}",
+        "options": {}
+      },
+      "name": "Google Gemini",
+      "type": "n8n-nodes-base.googleAi",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "credentialId": "={{$env.N8N_GMAIL_OAUTH2_CREDENTIALS}}",
+        "fromEmail": "={{$json[\"from\"]}}",
+        "toEmail": "={{$json[\"to\"]}}",
+        "subject": "={{$json[\"subject\"]}}",
+        "text": "={{$json[\"text\"]}}",
+        "options": {}
+      },
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "credentialId": "={{$env.N8N_GOOGLE_DOCS_OAUTH2_CREDENTIALS}}",
+        "documentId": "={{$json[\"documentId\"]}}",
+        "options": {}
+      },
+      "name": "Google Docs",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "path": "webhook",
+        "options": {
+          "responseMode": "responseNode"
+        }
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        50,
+        300
+      ],
+      "webhookId": "={{$env.N8N_WEBHOOK_URL}}/webhook"
+    },
+    {
+      "parameters": {
+        "path": "webhook-test",
+        "options": {
+          "responseMode": "responseNode"
+        }
+      },
+      "name": "Webhook Test",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        50,
+        500
+      ],
+      "webhookId": "={{$env.N8N_WEBHOOK_TEST_URL}}/webhook-test"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Test": {
+      "main": [
+        [
+          {
+            "node": "Google Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Google Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
