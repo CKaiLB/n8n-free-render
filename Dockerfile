@@ -1,11 +1,15 @@
 FROM n8nio/n8n
 
 COPY workflow.json /home/node/.n8n/workflow.json
-COPY entrypoint.sh /home/node/entrypoint.sh
-USER root
-RUN chmod +x /home/node/entrypoint.sh && \
-    chown node:node /home/node/entrypoint.sh
-USER node
 
-WORKDIR /home/node
-ENTRYPOINT ["./entrypoint.sh"]
+# Set environment variables
+ENV N8N_BASIC_AUTH_ACTIVE=true
+ENV N8N_BASIC_AUTH_USER=admin
+ENV N8N_BASIC_AUTH_PASSWORD=yourpassword
+ENV N8N_HOST=n8n.onrender.com
+ENV N8N_PORT=5678
+ENV N8N_PROTOCOL=https
+ENV WEBHOOK_URL=https://n8n.onrender.com
+
+# Start n8n
+CMD ["n8n", "start"]
