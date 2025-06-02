@@ -1,13 +1,8 @@
 FROM n8nio/n8n
 
-# Copy your workflow
+# Copy the workflow and script
 COPY workflow.json /home/node/.n8n/workflow.json
-
-# Copy the entrypoint script into a writable directory
 COPY entrypoint.sh /home/node/entrypoint.sh
-
-# Make it executable
-RUN chmod +x /home/node/entrypoint.sh
 
 # Set environment variables
 ENV N8N_BASIC_AUTH_ACTIVE=true
@@ -19,5 +14,5 @@ ENV N8N_PROTOCOL=https
 ENV WEBHOOK_URL=https://n8n.onrender.com
 ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 
-# Run using your custom entrypoint
-ENTRYPOINT ["/home/node/entrypoint.sh"]
+# Use shell to run the script (no need for chmod)
+ENTRYPOINT ["sh", "/home/node/entrypoint.sh"]
